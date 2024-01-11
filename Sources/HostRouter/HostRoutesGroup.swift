@@ -40,7 +40,7 @@ extension TopLevelHostRoutesBuilder {
 
 extension HostRoutesBuilder {
     public func grouped(subDomain: some StringProtocol) -> some HostRoutesBuilder {
-        HostRoutesGroup(root: self, port: nil, domainPath: subDomain.reversedDomainComponents)
+        HostRoutesGroup(root: self, port: nil, domainPath: subDomain.reversedSubDomainComponents)
     }
     
     public func grouped(reverseDomain: HostComponent...) -> some HostRoutesBuilder {
@@ -52,7 +52,7 @@ extension HostRoutesBuilder {
     }
     
     public func group(subDomain: some StringProtocol, configure: (HostRoutesBuilder) throws -> ()) rethrows {
-        try configure(HostRoutesGroup(root: self, port: nil, domainPath: subDomain.reversedDomainComponents))
+        try configure(HostRoutesGroup(root: self, port: nil, domainPath: subDomain.reversedSubDomainComponents))
     }
     
     public func group(reverseDomain: HostComponent..., configure: (HostRoutesBuilder) throws -> ()) rethrows {

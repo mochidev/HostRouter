@@ -38,12 +38,20 @@ extension HostComponent: CustomStringConvertible {
 
 extension StringProtocol {
     /// Converts a host (either a domain or an IP address) into a reversed collection of ``HostComponent``s.
+    @inlinable
     public var reversedDomainComponents: [HostComponent] {
         guard !self.isIPAddress else { return [.constant(String(self))] }
-        return self.split(separator: ".").reversed().map { .init(stringLiteral: $0.lowercased()) }
+        return reversedSubDomainComponents
+    }
+    
+    /// Converts a subdomain into a reversed collection of ``HostComponent``s.
+    @inlinable
+    public var reversedSubDomainComponents: [HostComponent] {
+        self.split(separator: ".").reversed().map { .init(stringLiteral: $0.lowercased()) }
     }
     
     /// Retrieve the port and domain from the receiving Host string.
+    @usableFromInline
     var hostComponents: (port: String?, reverseDomain: [String]) {
         let baseComponents = self.split(separator: ":")
         let (host, port) = baseComponents.count == 2 ? (String(baseComponents[0]), String(baseComponents[1])) : (String(self), nil)
@@ -52,7 +60,8 @@ extension StringProtocol {
     }
     
     /// Check if the string is an IP address.
-    private var isIPAddress: Bool {
+    @usableFromInline
+    var isIPAddress: Bool {
         // TODO: This was unused in Vapor, and NIO may have a better helper for this.
         
         /// We need some scratch space to let inet_pton write into.
