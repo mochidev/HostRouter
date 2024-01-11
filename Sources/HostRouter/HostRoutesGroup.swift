@@ -47,15 +47,15 @@ extension HostRoutesBuilder {
         HostRoutesGroup(root: self, port: nil, domainPath: reverseDomain)
     }
     
-    public func grouped(subDomain: some StringProtocol, configure: (HostRoutesBuilder) throws -> ()) rethrows {
+    public func group(subDomain: some StringProtocol, configure: (HostRoutesBuilder) throws -> ()) rethrows {
         try configure(HostRoutesGroup(root: self, port: nil, domainPath: subDomain.reversedDomainComponents))
     }
     
-    public func grouped(reverseDomain: HostComponent..., configure: (HostRoutesBuilder) throws -> ()) rethrows {
+    public func group(reverseDomain: HostComponent..., configure: (HostRoutesBuilder) throws -> ()) rethrows {
         try configure(HostRoutesGroup(root: self, port: nil, domainPath: reverseDomain))
     }
     
-    public func grouped(reverseDomain: [HostComponent], configure: (HostRoutesBuilder) throws -> ()) rethrows {
+    public func group(reverseDomain: [HostComponent], configure: (HostRoutesBuilder) throws -> ()) rethrows {
         try configure(HostRoutesGroup(root: self, port: nil, domainPath: reverseDomain))
     }
 }
