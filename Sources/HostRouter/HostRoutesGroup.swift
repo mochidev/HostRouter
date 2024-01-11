@@ -32,6 +32,10 @@ extension TopLevelHostRoutesBuilder {
     public func grouped(host: some StringProtocol) -> some HostRoutesBuilder {
         HostRoutesGroup(root: self, port: nil, domainPath: host.reversedDomainComponents)
     }
+    
+    public func group(host: some StringProtocol, configure: (HostRoutesBuilder) throws -> ()) rethrows {
+        try configure(HostRoutesGroup(root: self, port: nil, domainPath: host.reversedDomainComponents))
+    }
 }
 
 extension HostRoutesBuilder {
