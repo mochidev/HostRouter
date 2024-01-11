@@ -1,4 +1,4 @@
-struct HostRoutesGroup: TopLevelHostRoutesBuilder {
+struct HostRoutesGroup: Sendable, TopLevelHostRoutesBuilder {
     /// Router to cascade to.
     let root: HostRoutesBuilder
     

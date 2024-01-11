@@ -1,10 +1,10 @@
 import Vapor
 
-public protocol HostRoutesBuilder: RoutesBuilder {
+public protocol HostRoutesBuilder: Sendable, RoutesBuilder {
     func add(_ route: HostRoute)
 }
 
-public protocol TopLevelHostRoutesBuilder: HostRoutesBuilder {}
+public protocol TopLevelHostRoutesBuilder: Sendable, HostRoutesBuilder {}
 
 extension HostRoutesBuilder {
     public func add(_ route: Route) {
